@@ -7,6 +7,7 @@ let uris = []
 
 function generateShort(req, res, next) {
     req.short = uris.length + 1
+    next()
     // let short = uniqueString()
     // if (uris.filter(el => el.short === short).length == 0) {
     //     req.short = short
