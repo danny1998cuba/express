@@ -30,7 +30,7 @@ app.route('/api/shorturl/:shorted?')
   .get((req, res) => {
     let param = req.params.shorted
     if (param) {
-      let uri = uris.find(el => el.short === param)
+      let uri = uris.find(el => el.short == param)
       if (uri) {
         res.redirect(uri.full)
       } else {
