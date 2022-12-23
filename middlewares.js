@@ -16,7 +16,8 @@ function generateShort(req, res, next) {
 }
 
 function validateUrl(req, res, next) {
-    if (url(req.body.url)) {
+    // url(req.body.url)
+    if (req.body.url.match(/^https:\/\/*/)) {
         let uri = uris.find(el => el.full === req.body.url)
         if (uri) {
             console.log('Already registered');
