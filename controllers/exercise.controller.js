@@ -8,19 +8,18 @@ const getLogs = (req, res) => {
 
         let found = Exercise.find({
             username: doc.username,
-        })
-
-        if (req.query.limit) found.limit(parseInt(req.query.limit))
-
-        found.exec((err, result) => {
+        }, (err, result) => {
             if (err) res.sendStatus(500)
 
             if (req.query.from && req.query.to) {
                 result = result.filter(el => {
                     let date = new Date(el.date).toISOString().slice(0, 10)
+                    console.log(`from ${req.query.from}, to ${req.query.to}, date ${date}`);
                     return date >= req.query.from && date <= req.query.to
                 })
             }
+
+            if (req.query.limit) result = result.slice(0, parseInt(req.query.limit))
 
             res.send({
                 username: doc.username,
