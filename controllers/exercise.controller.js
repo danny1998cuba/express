@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const Exercise = require('../models/Exercise')
+const ObjectId = require('mongoose').Types.ObjectId
 
 const getLogs = (req, res) => {
     User.findById(req.params._id, (err, doc) => {
@@ -46,9 +47,10 @@ const createExercise = (req, res) => {
             description: req.body.description,
             duration: parseInt(req.body.duration),
             date: (req.body.date) ? new Date(req.body.date).toDateString() : new Date().toDateString()
-        }, (err, doc) => {
-            if (err) res.sendStatus(500)
-            res.send(doc)
+        }, (err, ex) => {
+            if (err) { console.log(err); res.sendStatus(500) }
+            ex._id = doc._id
+            res.send(ex)
         })
     })
 }
